@@ -1,32 +1,44 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 
 function FacebookLoginButton({ onSuccess, onFailure }) {
-  useEffect(() => {
-    // Nếu SDK đã load rồi thì không load lại
-    if (window.FB) return;
+  const [isSDKReady, setIsSDKReady] = useState(false);
 
-    // Init SDK với APP ID từ ENV
+  useEffect(() => {
+    if (window.FB && window.FB.init) {
+      setIsSDKReady(true);
+      return;
+    }
+
     window.fbAsyncInit = function () {
       window.FB.init({
         appId: process.env.REACT_APP_FACEBOOK_APP_ID,
         cookie: true,
         xfbml: false,
-        version: "v18.0",
+        version: "v18.0", 
       });
+
+      setIsSDKReady(true);
+      console.log("Facebook SDK đã init xong");
     };
 
-    // Load SDK
-    const script = document.createElement("script");
-    script.src = "https://connect.facebook.net/en_US/sdk.js";
-    script.async = true;
-    script.defer = true;
-    script.id = "facebook-jssdk";
-    document.body.appendChild(script);
-  }, []);
+    if (!document.getElementById("facebook-jssdk")) {
+      const script = document.createElement("script");
+      script.id = "facebook-jssdk";
+      script.src = "https://connect.facebook.net/en_US/sdk.js";
+      script.async = true;
+      script.defer = true;
 
-  const handleFBLogin = () => {
-    if (!window.FB) {
-      onFailure("Facebook SDK chưa sẵn sàng");
+      script.onerror = () => {
+        onFailure?.("Không thể tải Facebook SDK");
+      };
+
+      document.body.appendChild(script);
+    }
+  }, [onFailure]);
+
+  const handleFBLogin = useCallback(() => {
+    if (!window.FB || !isSDKReady) {
+      onFailure?.("Facebook SDK chưa sẵn sàng. Vui lòng thử lại sau vài giây.");
       return;
     }
 
@@ -35,41 +47,27 @@ function FacebookLoginButton({ onSuccess, onFailure }) {
         if (response.authResponse) {
           onSuccess(response.authResponse);
         } else {
-          onFailure("Người dùng chưa cấp quyền hoặc đã huỷ");
+          onFailure?.("Đăng nhập bị hủy hoặc chưa cấp quyền");
         }
       },
-      { scope: "public_profile,email" }
+      {
+        scope: "public_profile,email",
+      }
     );
-  };
+  }, [isSDKReady, onSuccess, onFailure]);
 
   return (
     <button
       onClick={handleFBLogin}
-      className="flex text-[1.25rem] max-lg:text-[12px] items-center justify-center gap-2 px-[0.5rem] py-[0.8rem] bg-white text-black min-h-[40px] border border-gray-300 rounded-[4px] hover:bg-gray-100"
+      disabled={!isSDKReady}
+      className={`flex text-[1.25rem] max-lg:text-[12px] items-center justify-center gap-2 
+        px-[0.5rem] py-[0.8rem] bg-white text-black min-h-[40px] border border-gray-300 
+        rounded-[4px] hover:bg-gray-100 ${!isSDKReady ? "opacity-50 cursor-not-allowed" : ""}`}
       style={{ fontWeight: "450" }}
     >
-      <img
-        src="/Icon/FBicon.svg"
-        alt="Facebook"
-        className="w-[20px] h-[20px]"
-      />
+      <img src="/Icon/FBicon.svg" alt="Facebook" className="w-[20px] h-[20px]" />
       Sign in with Facebook
     </button>
-    // <button
-    //   onClick={handleFBLogin}
-    //   type="submit"
-    //   className="flex flex-wrap gap-1 justify-center items-center py-3 px-16 max-lg:px-[64px] max-sm:px-[32px] min-h-[40px] w-full bg-white/15 max-lg:max-w-full mt-[10px]"
-    // >
-    //   <img
-    //     loading="lazy"
-    //     src={iconSrc}
-    //     alt=""
-    //     className="object-cover shrink-0  self-stretch my-auto aspect-square w-[24px]"
-    //   />
-    //   <span className="gap-2.5 self-stretch my-auto min-w-[240px] text-[1.25rem] max-lg:text-[12px] max-lg:min-w-[180px]">
-    //     Tiếp tục với {provider}
-    //   </span>
-    // </button>
   );
 }
 
