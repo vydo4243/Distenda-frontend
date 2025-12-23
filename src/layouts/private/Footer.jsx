@@ -83,7 +83,7 @@ function Footer() {
           </div>
         </div>
 
-        <div className="flex flex-wrap gap-5 self-stretch justify-between mt-[8px] w-full text-[0.875rem] max-lg:text-[12px] leading-none text-[#cff500] text-[0.875rem] max-w-[1476px] max-lg:max-w-full">
+        <div className="flex flex-wrap gap-5 self-stretch justify-between mt-[8px] w-full max-lg:text-[12px] leading-none text-[#cff500] text-[0.875rem] max-w-[1476px] max-lg:max-w-full">
           <p className="gap-2.5 self-center">
             {data?.setting?.WebsiteCopyright}
           </p>

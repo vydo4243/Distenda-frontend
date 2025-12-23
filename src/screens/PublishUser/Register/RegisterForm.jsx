@@ -123,13 +123,14 @@ function RegisterForm({ setLoading }) {
             provider="Facebook"
             iconSrc="Icon/FBicon.svg"
           /> */}
-          <FacebookLoginButton
-            onSuccess={handleFacebookLoginSuccess}
-            onFailure={handleFacebookLoginFailure}
-          />
+
           <LoginButton
             onSuccess={handleGoogleLoginSuccess}
             onFailure={handleGoogleLoginFailure}
+          />
+          <FacebookLoginButton
+            onSuccess={handleFacebookLoginSuccess}
+            onFailure={handleFacebookLoginFailure}
           />
           {error && <p>{error}</p>}
           {/* <div className="flex flex-col mt-2 w-full text-xl max-lg:text-lg max-lg:max-w-full">

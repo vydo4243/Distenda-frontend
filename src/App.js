@@ -30,6 +30,7 @@ import HandlePayment from './screens/User/Payment/HandlePayment';
 import MyCoursePurchased from './screens/PublishUser/MyCoursePurchased/CoursePage';
 import MyCourseCompleted from './screens/PublishUser/MyCourseCompleted/CoursePage';
 import MyCourseStudying from './screens/PublishUser/MyCourseStudying/CoursePage';
+import ConditionalLayout from './layouts/ConditionalLayout';
 
 function App() {
   const updateFavicon = (faviconURL) => {
@@ -66,8 +67,8 @@ function App() {
 
           {/* Những trang bắt buộc phải đăng nhập thì mới được vào */}
           {/* <Route element={<UserRoutes />}> */}
-          <Route element={<MainUser />}>
-            <Route element={<UserRoutes />}>
+          <Route element={<UserRoutes />}>
+            <Route element={<MainUser />}>
               <Route path='/user/profile' element={<UserProfile />} />
               <Route path='/user/notification' element={<UserNotification />} />
               <Route path='/user/message' element={<Message />} />
@@ -78,23 +79,27 @@ function App() {
               <Route path='/courses/CourseCompleted' element={<MyCourseCompleted />} />
               <Route path='/courses/CourseStudying' element={<MyCourseStudying />} />
             </Route>
-
-            <Route path='/courses' element={<Courses />} />
-            <Route path='/category/:CategorySlug' element={<Category />} />
-            <Route path='/' element={<Intro />} />
-            <Route path='/courses/:CourseSlug' element={<CourseDetail />} />
-          </Route>
-          <Route element={<MainPublic />} >
-            <Route element={<UserRoutes />}>
-              {/* <Route element={<MainCourse />} > */}
+            {/* Các trang user KHÔNG có sidebar (nhưng vẫn check login) */}
+            <Route element={<MainPublic />}>
               <Route path='/courses/CoursePurchased/:CourseSlug/:VideoSlug' element={<CoursePractice />} />
               <Route path='/courses/CoursePurchased/:CourseSlug/CourseCode/:ExerciseSlug' element={<CoursesCode />} />
             </Route>
+          </Route>
 
+              {/* Route cần phân biệt layout theo token */}
+          <Route element={<ConditionalLayout />}>
+                <Route path="/category/:CategorySlug" element={<Category />} />
+                <Route path="/courses" element={<Courses />} />
+          </Route> 
+
+          <Route element={<MainPublic />} >
             <Route element={<PublicRoutes />}>
               <Route path='/login' element={<Login />} />
               <Route path='/register' element={<Register />} />
             </Route>
+            
+            <Route path="/courses/:CourseSlug" element={<CourseDetail />} />
+            <Route path="/" element={<Intro />} />
           </Route>
           {/* </Route> */}
           {/* Dù có đăng nhập hay không vẫn vào được */}

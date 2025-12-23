@@ -42,6 +42,7 @@ function TaskBar({ handleTaskBarToggle }) {
     <div className="flex flex-col px-4 py-3 justify-center text-xl max-lg:text-[16px] leading-none text-white bg-gradient-to-b from-[#131313]/90 via-[#1B1B1B]/90 to-[#403F3F]/90 backdrop-blur-[20px]">
       {menuItems.map((item, index) => (
         <div
+          key={index}
           onMouseEnter={
             (e) => (e.currentTarget.style.background = "rgba(0, 0, 0, 0.6)") // Hiệu ứng hover
           }

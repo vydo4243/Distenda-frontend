@@ -2,25 +2,29 @@ import React, { useEffect } from "react";
 
 function LoginButton({ onSuccess, onFailure }) {
   useEffect(() => {
-    // Đảm bảo Google Identity API đã được tải
-    window.onload = () => {
-      window.google.accounts.id.initialize({
-        client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
-        callback: onSuccess, // Gọi hàm onSuccess khi đăng nhập thành công
-      });
+    const initializeGoogle = () => {
+      if (window.google) {
+        window.google.accounts.id.initialize({
+          client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
+          callback: onSuccess,
+        });
 
       window.google.accounts.id.renderButton(
-        document.getElementById("g_id_signin"),
-        {
-          theme: "outline",
-          size: "large",
-          shape: "square",
-          text: "signin_with",
-          logo_alignment: "center",
-          cancel_on_tap_outside: true,
-        }
-      );
+          document.getElementById("g_id_signin"),
+          {
+            theme: "outline",
+            size: "large",
+            shape: "square",
+            text: "signin_with",
+            logo_alignment: "center",
+            cancel_on_tap_outside: true,
+          }
+        );
+      } else {
+        console.warn("Google API chưa sẵn sàng");
+      }
     };
+    initializeGoogle();
   }, [onSuccess]);
 
   return (
