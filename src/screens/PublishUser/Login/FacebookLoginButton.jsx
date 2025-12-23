@@ -28,7 +28,7 @@ function FacebookLoginButton({ onSuccess, onFailure }) {
     }
 
     window.FB.login(
-      (response) => {
+      (response) => { 
         if (response.authResponse) {
           onSuccess(response.authResponse);
         } else {
@@ -40,11 +40,17 @@ function FacebookLoginButton({ onSuccess, onFailure }) {
   }, [isSDKReady, onSuccess, onFailure]);
 
   return (
-    <button
+        <button
       onClick={handleFBLogin}
       disabled={!isSDKReady}
-      className={`... ${!isSDKReady ? "opacity-50 cursor-not-allowed" : ""}`}
+      className="flex text-[1.25rem] max-lg:text-[12px] items-center justify-center gap-2 px-[0.5rem] py-[0.8rem] bg-white text-black min-h-[40px] border border-gray-300 rounded-[4px] hover:bg-gray-100"
+      style={{ fontWeight: "450" }}
     >
+      <img
+        src="/Icon/FBicon.svg"
+        alt="Facebook"
+        className="w-[20px] h-[20px]"
+      />
       Sign in with Facebook
     </button>
   );

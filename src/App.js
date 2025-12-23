@@ -31,6 +31,7 @@ import MyCoursePurchased from './screens/PublishUser/MyCoursePurchased/CoursePag
 import MyCourseCompleted from './screens/PublishUser/MyCourseCompleted/CoursePage';
 import MyCourseStudying from './screens/PublishUser/MyCourseStudying/CoursePage';
 import ConditionalLayout from './layouts/ConditionalLayout';
+import PrivacyPolicy from './screens/PublishUser/Privacy/PrivacyPolicy';
 
 function App() {
   const updateFavicon = (faviconURL) => {
@@ -100,6 +101,7 @@ function App() {
             
             <Route path="/courses/:CourseSlug" element={<CourseDetail />} />
             <Route path="/" element={<Intro />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           </Route>
           {/* </Route> */}
           {/* Dù có đăng nhập hay không vẫn vào được */}
