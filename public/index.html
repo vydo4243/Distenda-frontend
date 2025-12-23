@@ -33,14 +33,16 @@
   <title>Distenda</title>
 
   <script src="https://accounts.google.com/gsi/client" async defer></script>
-
-  <!-- <script>
+  <script>
+    window.FACEBOOK_APP_ID = '%REACT_APP_FB_CLIENT_ID%';
+  </script>
+  <script>
     window.fbAsyncInit = function () {
       FB.init({
-        appId: '1158980762365467',
+        appId: window.FACEBOOK_APP_ID,
         cookie: true,
         xfbml: true,
-        version: 'v18.0'
+        version: 'v20.0'
       });
     };
 
@@ -51,7 +53,7 @@
       js.src = "https://connect.facebook.net/en_US/sdk.js";
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
-  </script> -->
+  </script>
 
 </head>
 
