@@ -31,7 +31,7 @@ function LoginForm({ setLoading, onForgotPassword }) {
           path: "/", // cookie có hiệu lực toàn site
           sameSite: "Lax", // tăng bảo mật, tránh CSRF
         });
-        navigate("/");
+        navigate("/courses");
       } else {
         setError(res.data.message);
       }

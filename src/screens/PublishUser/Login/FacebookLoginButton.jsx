@@ -1,13 +1,41 @@
-import React from "react";
+import React, { useEffect } from "react";
 
-function FacebookLoginButton({ provider, iconSrc, onSuccess, onFailure }) {
+function FacebookLoginButton({ onSuccess, onFailure }) {
+  useEffect(() => {
+    // Nếu SDK đã load rồi thì không load lại
+    if (window.FB) return;
+
+    // Init SDK với APP ID từ ENV
+    window.fbAsyncInit = function () {
+      window.FB.init({
+        appId: process.env.REACT_APP_FACEBOOK_APP_ID,
+        cookie: true,
+        xfbml: false,
+        version: "v18.0",
+      });
+    };
+
+    // Load SDK
+    const script = document.createElement("script");
+    script.src = "https://connect.facebook.net/en_US/sdk.js";
+    script.async = true;
+    script.defer = true;
+    script.id = "facebook-jssdk";
+    document.body.appendChild(script);
+  }, []);
+
   const handleFBLogin = () => {
+    if (!window.FB) {
+      onFailure("Facebook SDK chưa sẵn sàng");
+      return;
+    }
+
     window.FB.login(
       (response) => {
-        if (response.status === "connected") {
+        if (response.authResponse) {
           onSuccess(response.authResponse);
         } else {
-          onFailure("Người dùng chưa cấp quyền hoặc có lỗi.");
+          onFailure("Người dùng chưa cấp quyền hoặc đã huỷ");
         }
       },
       { scope: "public_profile,email" }

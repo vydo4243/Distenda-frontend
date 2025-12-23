@@ -50,13 +50,13 @@ function Footer() {
                   VỀ CHÚNG TÔI
                 </h3>
                 <a
-                  href="#about"
+                  href="/"
                   className="overflow-hidden px-16 py-1 mt-4 w-full max-lg:px-5"
                 >
                   Giới thiệu
                 </a>
                 <a
-                  href="#careers"
+                  href="/"
                   className="overflow-hidden px-16 py-1 mt-4 w-full max-lg:px-5"
                 >
                   Tuyển dụng
