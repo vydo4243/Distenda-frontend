@@ -51,7 +51,7 @@ function FacebookLoginButton({ onSuccess, onFailure }) {
         alt="Facebook"
         className="w-[20px] h-[20px]"
       />
-      Sign in with Facebook
+      Đăng nhập bằng Facebook
     </button>
   );
 }
