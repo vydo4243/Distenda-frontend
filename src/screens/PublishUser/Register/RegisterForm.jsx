@@ -33,13 +33,13 @@ function RegisterForm({ setLoading }) {
           path: "/", // cookie có hiệu lực toàn site
           sameSite: "Lax", // tăng bảo mật, tránh CSRF
         });
-        navigate("/");
+        navigate("/courses");
       } else {
         setError(res.data.message);
       }
       setLoading(false);
     } catch (err) {
-      setError("Lỗi đăng nhập với Google");
+      setError("Lỗi đăng ký với Google");
     }
   };
 
@@ -58,24 +58,24 @@ function RegisterForm({ setLoading }) {
           path: "/", // cookie có hiệu lực toàn site
           sameSite: "Lax", // tăng bảo mật, tránh CSRF
         });
-        navigate("/");
+        navigate("/courses");
       } else {
         setError(res.data.message);
       }
       setLoading(false);
     } catch (err) {
-      setError("Lỗi đăng nhập với Facebook");
+      setError("Lỗi đăng ký với Facebook");
     }
   };
 
   const handleFacebookLoginFailure = (error) => {
     console.error(error);
-    setError("Đăng nhập Facebook thất bại");
+    setError("Đăng ký Facebook thất bại");
   };
 
   const handleGoogleLoginFailure = (error) => {
     console.error(error);
-    setError("Đăng nhập Google thất bại");
+    setError("Đăng ký Google thất bại");
   };
 
   const handleChange = (e) => {

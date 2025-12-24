@@ -155,9 +155,13 @@ const SideBar = ({ headerHeight }) => {
                   textOverflow: "ellipsis",
                 }}
               >
-                {data?.setting?.user?.UserFullName
-                  ? data.setting.user.UserFullName.split(" ").slice(-1)[0]
-                  : ""}
+                {(() => {
+                  if (!data?.setting?.user?.UserFullName) return "";
+                  const parts =
+                    data.setting.user.UserFullName.trim().split(" ");
+                  if (parts.length <= 1) return parts[0]; 
+                  return parts.slice(-2).join(" ");
+                })()}
               </div>
             </div>
             <div className="flex items-center max-lg:text-[16px] text-[1.125rem] font-medium">

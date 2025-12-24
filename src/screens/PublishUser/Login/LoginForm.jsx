@@ -65,7 +65,7 @@ function LoginForm({ setLoading, onForgotPassword }) {
           path: "/", // cookie có hiệu lực toàn site
           sameSite: "Lax", // tăng bảo mật, tránh CSRF
         });
-        navigate("/");
+        navigate("/courses");
       } else {
         setError(res.data.message);
       }
@@ -123,14 +123,10 @@ function LoginForm({ setLoading, onForgotPassword }) {
             onFailure={handleFacebookLoginFailure}
           /> */}
           <LoginButton
-            provider="Google"
-            iconSrc="Icon/GGicon.svg"
             onSuccess={handleGoogleLoginSuccess}
             onFailure={handleGoogleLoginFailure}
           />
           <FacebookLoginButton
-            provider="Facebook"
-            iconSrc="Icon/FBicon.svg"
             onSuccess={handleFacebookLoginSuccess}
             onFailure={handleFacebookLoginFailure}
           />
