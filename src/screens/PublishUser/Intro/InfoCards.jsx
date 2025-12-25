@@ -39,7 +39,7 @@ const infoCardsData = [
 // Component hiển thị từng thẻ thông tin
 function InfoCard({ icon, title, content }) {
   return (
-    <div className="p-[1.5rem] border-0 bg-white bg-opacity-10 backdrop-blur-[10px]">
+    <div className="p-[1.5rem] border-0 bg-white bg-opacity-10 backdrop-blur-[10px] h-full">
       <div className="card-body m-[0.5rem]">
         <img
           src={icon}
@@ -62,7 +62,7 @@ function InfoCards() {
       <div className="relative flex flex-wrap rounded-lg w-full mx-0">
         <div className="grid grid-cols-3 gap-5 w-full justify-center">
           {infoCardsData.map((card, index) => (
-            <div key={index} className="flex-1 w-full">
+            <div key={index} className="flex-1 w-full h-full">
               <InfoCard {...card} />
             </div>
           ))}

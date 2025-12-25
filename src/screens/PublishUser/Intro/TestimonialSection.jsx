@@ -27,9 +27,9 @@ const testimonialData = [
 
 function TestimonialCard({ avatar, name, content }) {
   return (
-    <div className="card bg-white bg-opacity-10 justify-items-start w-auto max-w-[347px] mx-auto flex-shrink-0 backdrop-blur-[10px]">
+    <div className="bg-white bg-opacity-10 justify-items-start w-auto max-w-[347px] mx-auto flex-shrink-0 backdrop-blur-[10px] h-full">
       <div className="card-body px-[20px] py-[20px]">
-        <div className="d-flex align-items-center mb-[8px]">
+        <div className="flex align-items-center mb-[8px]">
           <img
             src={avatar}
             alt={name}
@@ -70,9 +70,9 @@ function TestimonialSection() {
             Nhận xét của học viên
           </h2>
         </div>
-        <Row className="grid grid-cols-3">
+        <Row className="grid grid-cols-3 ">
           {testimonialData.map((testimonial, index) => (
-            <div key={index} className="w-auto flex-shrink-0">
+            <div key={index} className="flex-1 h-full">
               <TestimonialCard {...testimonial} />
             </div>
           ))}
